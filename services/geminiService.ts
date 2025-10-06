@@ -1,19 +1,11 @@
-
-
 import { GoogleGenAI, Modality, Part } from '@google/genai';
 import { ImageFile } from '../types';
 
-if (!process.env.API_KEY) {
-    console.warn("API_KEY environment variable not set. Using a placeholder. The app will not work without a valid key.");
-}
-
+// The API_KEY is checked in App.tsx before this service is ever used.
+// If the app is running, the key is assumed to be present.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
 export const editImageWithGemini = async (prompt: string, images: ImageFile[]): Promise<string> => {
-  if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-  }
-
   const imageParts: Part[] = images.map(image => {
       const base64Data = image.base64.split(',')[1];
       if (!base64Data) {

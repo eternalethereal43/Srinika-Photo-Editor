@@ -10,6 +10,38 @@ import ResultDisplay from './components/ResultDisplay';
 import { SparklesIcon } from './components/icons/SparklesIcon';
 
 const App: React.FC = () => {
+  // Gate the app if the API key is not configured.
+  if (!process.env.API_KEY) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-slate-200 font-sans flex flex-col items-center justify-center p-4 text-center">
+        <div className="w-full max-w-lg mx-auto bg-slate-800 p-8 rounded-xl shadow-lg">
+          <h1 className="text-3xl font-bold text-red-400">Configuration Error</h1>
+          <p className="mt-4 text-slate-300">
+            The Google Gemini API key is not configured for this application.
+          </p>
+          <p className="mt-2 text-slate-400">
+            This can happen when running on a static hosting service like GitHub Pages where environment variables cannot be accessed by the browser.
+          </p>
+          <div className="mt-6 text-left bg-slate-900 p-4 rounded-lg">
+            <h2 className="text-xl font-semibold text-cyan-400">How to Fix</h2>
+            <p className="mt-2 text-slate-300">
+              To run this application, you need to deploy it to a hosting provider that supports environment variables.
+            </p>
+            <ol className="list-decimal list-inside mt-2 space-y-2 text-slate-400">
+              <li>Choose a provider like Vercel, Netlify, or Google Cloud Run.</li>
+              <li>Connect your Git repository.</li>
+              <li>In the project settings on your provider, add an environment variable named <code>API_KEY</code> and set its value to your Gemini API key.</li>
+              <li>Redeploy the application.</li>
+            </ol>
+          </div>
+          <p className="mt-6 text-xs text-slate-500">
+            For security reasons, your API key should never be written directly into the code.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const [originalImage, setOriginalImage] = useState<ImageFile | null>(null);
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
