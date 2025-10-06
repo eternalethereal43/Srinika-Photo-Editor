@@ -1,0 +1,5 @@
+{
+  "name": "Srinika's photo editor",
+  "description": "An AI-powered image editing application using Gemini to remove backgrounds, stylize photos, change outfits, and remove objects from your pictures.",
+  "requestFramePermissions": []
+}
